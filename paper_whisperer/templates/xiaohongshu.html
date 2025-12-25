@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小红书笔记</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 1080px;
+            height: 1920px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            padding: 60px 50px;
+            color: #333;
+            overflow: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            border-radius: 30px;
+            padding: 60px 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+        
+        .hook {
+            font-size: 32px;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        
+        .divider {
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            margin: 0 auto 40px;
+            border-radius: 2px;
+        }
+        
+        .content {
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .key-points {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+        
+        .key-points li {
+            font-size: 36px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            padding-left: 20px;
+            color: #444;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            border-left: 6px solid #e17055;
+        }
+        
+        .highlight-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #d63031;
+            margin-bottom: 20px;
+        }
+        
+        .highlight-text {
+            font-size: 34px;
+            line-height: 1.8;
+            color: #2d3436;
+        }
+        
+        .conclusion {
+            text-align: center;
+            font-size: 36px;
+            color: #555;
+            line-height: 1.8;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 2px solid #eee;
+        }
+        
+        .emoji {
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">{{ title }}</h1>
+            {% if hook %}
+            <p class="hook">{{ hook }}</p>
+            {% endif %}
+            <div class="divider"></div>
+        </div>
+        
+        <div class="content">
+            {% if key_points %}
+            <ul class="key-points">
+                {% for point in key_points %}
+                <li>{{ point }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            
+            {% if highlight %}
+            <div class="highlight-box">
+                <div class="highlight-title">✨ 核心亮点</div>
+                <div class="highlight-text">{{ highlight }}</div>
+            </div>
+            {% endif %}
+        </div>
+        
+        {% if conclusion %}
+        <div class="conclusion">
+            {{ conclusion }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
+
