@@ -24,12 +24,27 @@ class LLMClient:
         self.provider = provider
         
         if provider == "openai":
-            self.client = OpenAI(
-                api_key=settings.OPENAI_API_KEY,
-                base_url=settings.OPENAI_BASE_URL
-            )
+            # 检查 API 密钥
+            if not settings.OPENAI_API_KEY:
+                raise ValueError(
+                    "OPENAI_API_KEY 未设置。请在 .env 文件中设置 OPENAI_API_KEY 环境变量。"
+                )
+            
+            # 构建初始化参数，只包含有效的参数
+            # OpenAI 2.x 版本不支持 proxies 参数
+            init_kwargs = {
+                "api_key": settings.OPENAI_API_KEY
+            }
+            if settings.OPENAI_BASE_URL:
+                init_kwargs["base_url"] = settings.OPENAI_BASE_URL
+            
+            self.client = OpenAI(**init_kwargs)
             self.model = settings.DEFAULT_VISION_MODEL
         elif provider == "qwen":
+            if not settings.QWEN_API_KEY:
+                raise ValueError(
+                    "QWEN_API_KEY 未设置。请在 .env 文件中设置 QWEN_API_KEY 环境变量。"
+                )
             dashscope.api_key = settings.QWEN_API_KEY
             self.model = settings.QWEN_MODEL
         else:
